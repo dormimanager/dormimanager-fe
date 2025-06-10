@@ -1,6 +1,7 @@
 <template>
   <div>
     <button @click="fetchTests">테이블 조회</button>
+    <button @click="fetchTests">내거</button>
     <ul>
       <li v-for="item in testList" :key="item.id">
         {{ item.id }} - {{ item.name }}
