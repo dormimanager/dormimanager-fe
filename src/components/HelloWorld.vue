@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import axios from 'axios'
 
 
