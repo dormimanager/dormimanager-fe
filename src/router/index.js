@@ -1,15 +1,18 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router'
-import HelloWorld from "@/components/HelloWorld.vue";
+import LoginPage from "@/components/LoginPage.vue";
 import MainPage from '@/components/MainPage.vue';
+import RegisterPage from '@/components/RegisterPage.vue';
 
 const routes = [
     {
         path: '/',
         name: 'Home',
-        component: HelloWorld
+        component: LoginPage,
+        meta: { hideHeader: true }
     },
-    { path: '/main', name: 'MainPage', component: MainPage },
+    { path: '/main', name: 'MainPage', component: MainPage},
+    { path: '/register', name: 'RegisterPage', component: RegisterPage, meta: { hideHeader: true }},
     // 필요한 경로 추가
 ]
 
