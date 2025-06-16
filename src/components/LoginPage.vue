@@ -38,7 +38,9 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/authStore'
 
+const authStore = useAuthStore()
 const testList = ref([])
 const router = useRouter();
 const loginData = ref({
@@ -62,7 +64,21 @@ const handleLogin = async () => {
     console.log(loginData.value)
     const response = await axios.post('/api/auth/login', loginData.value);
     if (response.data.token) {
-      localStorage.setItem('token', response.data.token);
+      const token = response.data.token // 서버에서 { token: '...' } 형태로 응답한다고 
+
+      // 토큰에서 정보 분리
+      const payload = token.split('.')[1]
+      const decoded = atob(payload.replace(/-/g, '+').replace(/_/g, '/'))
+      const userInfo = JSON.parse(decoded)
+
+      // Pinia에 저장
+      authStore.setToken(token)
+      authStore.setUserInfo({
+      username: userInfo.sub,      // 예시: '홍길동'
+      studentId: userInfo.studentId,
+      role: userInfo.auth
+      })
+      // localStorage.setItem('token', response.data.token);
       router.push('/main');
     }
   } catch (error) {

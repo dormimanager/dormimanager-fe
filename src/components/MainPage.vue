@@ -3,14 +3,21 @@
   <button @click="laundry">세탁</button>
 </template>
 
-<script>
-export default {
-  name : 'MainPage',
-  methods: {
-    laundry() {
-      this.$router.push('/laundry')
-    }
-  }
+<script setup>
+
+import { useAuthStore } from '@/stores/authStore'
+import { useRouter } from 'vue-router'
+
+const authStore = useAuthStore()
+const router = useRouter()
+
+const token = authStore.token
+const username = authStore.username
+console.log(token)
+console.log(username)
+
+function laundry() {
+  router.push('/laundry')
 }
 </script>
 
