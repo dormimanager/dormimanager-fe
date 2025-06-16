@@ -17,7 +17,7 @@ console.log(token)
 console.log(username)
 
 function laundry() {
-  router.push('/laundry')
+  router.push('/member/laundry')
 }
 </script>
 
