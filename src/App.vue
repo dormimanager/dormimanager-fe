@@ -55,11 +55,11 @@ export default {
   border: 2px solid red;
   box-sizing: border-box;
   overflow: auto; /* 콘텐츠가 넘칠 경우 스크롤 */
+  flex : 1;
 }
 .bottom-area {
-  height: 10%;
+  height: 7%;
   border: 2px solid red;
   box-sizing: border-box;
-  text-align: left;
-}
+  text-align: left;}
 </style>
