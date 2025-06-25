@@ -4,6 +4,9 @@
       <img src="@/assets/logo.png" alt="로고" class="logo" />
       <span class="system-title">기숙사 생활 관리 시스템</span>
     </div>
+    <div>
+      <button @click="logout">로그아웃</button>
+    </div>
     <div class="header-right">
       <button class="menu-btn" aria-label="메뉴">
         <span class="bar"></span>
@@ -14,10 +17,19 @@
   </header>
 </template>
 
-<script>
-export default {
-  name: 'HeaderPage'
+<script setup>
+import { useAuthStore } from '@/stores/authStore'
+import { useRouter } from 'vue-router'
+
+const authStore = useAuthStore()
+const router = useRouter()
+
+function logout() {
+  authStore.clearToken()
+  // 필요하다면 라우터로 로그인 페이지로 이동
+  router.push('/')
 }
+
 </script>
 
 <style scoped>

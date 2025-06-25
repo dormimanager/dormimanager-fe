@@ -4,7 +4,7 @@ import LoginPage from "@/components/LoginPage.vue";
 import MainPage from '@/components/MainPage.vue';
 import RegisterPage from '@/components/RegisterPage.vue';
 import LaundryPC from "@/components/student/laundry/LaundryPC.vue";
-
+import MyPage from "@/components/student/mypage/MyPage.vue"
 const routes = [
     {
         path: '/',
@@ -16,6 +16,7 @@ const routes = [
     { path: '/register', name: 'RegisterPage', component: RegisterPage, meta: { hideHeader: true }},
     // 필요한 경로 추가
     { path: '/member/laundry', name: 'LaundryPC', component: LaundryPC},
+    { path: '/member/mypage', name: 'LaundryPC', component: MyPage},
 ]
 
 const router = createRouter({
