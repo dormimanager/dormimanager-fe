@@ -5,6 +5,7 @@ import MainPage from '@/components/MainPage.vue';
 import RegisterPage from '@/components/RegisterPage.vue';
 import LaundryPC from "@/components/student/laundry/LaundryPC.vue";
 import StudyroomPC from "@/components/student/studyroom/StudyroomPC.vue";
+import MyPage from "@/components/student/mypage/MyPage.vue"
 
 const routes = [
     {
@@ -18,6 +19,7 @@ const routes = [
     // 필요한 경로 추가
     { path: '/stu/laundry', name: 'LaundryPC', component: LaundryPC},
     { path: '/stu/studyroom', name: 'StudyroomPC', component: StudyroomPC},
+    { path: '/member/mypage', name: 'LaundryPC', component: MyPage},
 
 ]
 
