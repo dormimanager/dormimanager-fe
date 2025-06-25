@@ -1,24 +1,24 @@
 <template>
   <div class="banner">
-    <div class="banner-text">기숙사 세탁방 예약</div>
+    <div class="banner-text">기숙사 스터디룸 예약</div>
   </div>
   <div class="guide">
-    <h2 class="title">기숙사 세탁방 예약/사용방법</h2>
-    <table class="laundry-table">
+    <h2 class="title">기숙사 스터디룸 예약방법/주의사항</h2>
+    <table class="study-table">
       <tr>
-        <th class="label-cell">세탁방<br />예약방법</th>
+        <th class="label-cell">스터디룸<br />예약방법</th>
         <td class="content-cell">
           1. 원하는 위치 선택<br />
-          2. 원하는 세탁기/건조기 선택<br />
+          2. 원하는 방 선택<br />
           3. 원하는 시간 예약<br />
           <span class="note">※ 단, 한 타임당 1시간 30분(90분)으로 제한.</span>
         </td>
-        <th class="label-cell">세탁방<br />사용방법</th>
+        <th class="label-cell">스터디룸<br />주의사항</th>
         <td class="content-cell">
-          1. 전원 스위치 켜기<br />
-          2. 세제와 세탁물을 넣기<br />
-          3. 금액 맞게 투입<br />
-          4. 동작/일시정지 버튼 누르기
+          • 다 사용하고 나면 사용완료 해주기<br />
+          • 음식 섭취 금지<br />
+          • 퇴실 전 뒷정리 필수<br />
+          • 작은 소리로 대화하기
         </td>
       </tr>
     </table>
@@ -34,22 +34,14 @@
       </select>
     </div>
 
-    <div class="laundry-machines">
-      <h3 class="type">세탁기</h3>
-      <div v-for="machine in machines" :key="machine.id" class="machine-card">
-        <img src="@/assets/machine-icon.png" alt="세탁기" class="machine-image" />
-        <div class="machine-id">{{ machine.id }}</div>
+    <div class="study">
+      <div v-for="study in studies" :key="study.id" class="study-card">
+        <img src="@/assets/study-icon.png" alt="세탁기" class="study-image" />
+        <div class="study-id">{{ study.id }}</div>
         <button class="reserve-btn">예약하기</button>
       </div>
     </div>
-    <div class="dry-machines">
-      <h3 class="type">건조기</h3>
-      <div v-for="machine in machines" :key="machine.id" class="machine-card">
-        <img src="@/assets/machine-icon.png" alt="건조기" class="machine-image" />
-        <div class="machine-id">{{ machine.id }}</div>
-        <button class="reserve-btn">예약하기</button>
-      </div>
-    </div>
+
   </div>
 </template>
 
@@ -58,7 +50,7 @@ import { ref } from 'vue'
 
 const selectedBuilding = ref('')
 const buildings = ['1동', '2동', '3동']
-const machines = [
+const studies = [
   { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }
 ]
 </script>
@@ -68,9 +60,9 @@ const machines = [
   position: relative;
   width: 100%;
   height: 200px;
-  background-image: url('@/assets/laundry.png');
+  background-image: url('@/assets/studyroom.png');
   background-size: cover;
-  background-position: center 50%;
+  background-position: center 70%;
   background-repeat: no-repeat;
 }
 
@@ -100,7 +92,7 @@ const machines = [
   text-align: left;
 }
 
-.laundry-table {
+.study-table {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
@@ -150,26 +142,17 @@ li {
   text-align: left;
 }
 
-.type {
-  margin-left: 40px;
-  margin-right: 5px;
-}
 
-.laundry-machines {
+.study{
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   margin-top: 20px;
 }
 
-.dry-machines {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin-top: 40px; /*카드사이 간격 필요하면 gap 추가*/
-}
 
-.machine-card {
+
+.study-card {
   width: 180px;
   height: 200px;
   border: 1px solid #ccc;
@@ -180,7 +163,7 @@ li {
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.machine-image {
+.study-image {
   width: 100px;
   height: 100px;
   object-fit: contain;
@@ -188,7 +171,7 @@ li {
   margin-bottom: 10px;
 }
 
-.machine-id {
+.study-id {
   font-size: 16px;
   margin-bottom: 8px;
 }
