@@ -23,6 +23,7 @@
     </div>
   </div>
   <button @click="laundry">세탁</button>
+  <button @click="studyroom">스터디룸</button>
 </template>
 
 <script setup>
@@ -68,9 +69,11 @@ onMounted(async () => {
 
 
 function laundry() {
-  router.push('/member/laundry')
+  router.push('/stu/laundry')
 }function mypage() {
-  router.push('/member/mypage')
+  router.push('/stu/mypage')
+}function studyroom() {
+  router.push('/stu/studyroom')
 }
 </script>
 

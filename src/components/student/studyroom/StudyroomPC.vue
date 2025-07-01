@@ -2,47 +2,53 @@
   <div class="banner">
     <div class="banner-text">기숙사 스터디룸 예약</div>
   </div>
-  <div class="guide">
-    <h2 class="title">기숙사 스터디룸 예약방법/주의사항</h2>
-    <table class="study-table">
-      <tr>
-        <th class="label-cell">스터디룸<br />예약방법</th>
-        <td class="content-cell">
-          1. 원하는 위치 선택<br />
-          2. 원하는 방 선택<br />
-          3. 원하는 시간 예약<br />
-          <span class="note">※ 단, 한 타임당 1시간 30분(90분)으로 제한.</span>
-        </td>
-        <th class="label-cell">스터디룸<br />주의사항</th>
-        <td class="content-cell">
-          • 다 사용하고 나면 사용완료 해주기<br />
-          • 음식 섭취 금지<br />
-          • 퇴실 전 뒷정리 필수<br />
-          • 작은 소리로 대화하기
-        </td>
-      </tr>
-    </table>
-  </div>
-
-  <div class="reservation">
-    <h2 class="title">예약하기</h2>
-    <div class="choice">
-      <label for="building">동 선택 </label>
-      <select id="building" v-model="selectedBuilding">
-        <option disabled value="">선택하기</option>
-        <option v-for="building in buildings" :key="building">{{ building }}</option>
-      </select>
+  <div class="wrapper">
+    <div class="guide">
+      <h2 class="title">기숙사 스터디룸 예약방법/주의사항</h2>
+      <table class="study-table">
+        <tr>
+          <th class="label-cell">스터디룸<br />예약방법</th>
+          <td class="content-cell">
+            1. 원하는 위치 선택<br />
+            2. 원하는 방 선택<br />
+            3. 원하는 시간 예약<br />
+            <span class="note">※ 단, 한 타임당 1시간 30분(90분)으로 제한.</span>
+          </td>
+          <th class="label-cell">스터디룸<br />주의사항</th>
+          <td class="content-cell">
+            • 다 사용하고 나면 사용완료 해주기<br />
+            • 음식 섭취 금지<br />
+            • 퇴실 전 뒷정리 필수<br />
+            • 작은 소리로 대화하기
+          </td>
+        </tr>
+      </table>
     </div>
 
-    <div class="study">
-      <div v-for="study in studies" :key="study.id" class="study-card">
-        <img src="@/assets/study-icon.png" alt="세탁기" class="study-image" />
-        <div class="study-id">{{ study.id }}</div>
-        <button class="reserve-btn">예약하기</button>
+    <div class="map">
+      <h2 class="title">세탁실 배치도</h2>
+      <img src="@/assets/studyroom-map.png" alt="스터디룸 배치도" class="layout-image" />
+    </div>
+
+    <div class="reservation">
+      <h2 class="title">예약하기</h2>
+      <div class="choice">
+        <label for="building">동 선택 </label>
+        <select id="building" v-model="selectedBuilding">
+          <option disabled value="">선택하기</option>
+          <option v-for="building in buildings" :key="building">{{ building }}</option>
+        </select>
+      </div>
+
+      <div class="study">
+        <div class="study-card">
+          <img src="@/assets/study-icon.png" alt="스터디룸" class="study-image" />
+          <button class="reserve-btn">예약하기</button>
+        </div>
       </div>
     </div>
-
   </div>
+
 </template>
 
 <script setup>
@@ -50,9 +56,7 @@ import { ref } from 'vue'
 
 const selectedBuilding = ref('')
 const buildings = ['1동', '2동', '3동']
-const studies = [
-  { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }
-]
+
 </script>
 
 <style scoped>

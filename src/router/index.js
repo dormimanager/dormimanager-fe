@@ -19,7 +19,7 @@ const routes = [
     // 필요한 경로 추가
     { path: '/stu/laundry', name: 'LaundryPC', component: LaundryPC},
     { path: '/stu/studyroom', name: 'StudyroomPC', component: StudyroomPC},
-    { path: '/member/mypage', name: 'LaundryPC', component: MyPage},
+    { path: '/stu/mypage', name: 'MyPage', component: MyPage},
 
 ]
 

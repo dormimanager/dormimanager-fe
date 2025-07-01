@@ -39,7 +39,8 @@ export default {
   margin-top: 60px; */
   margin: 0;
   padding: 0;
-  height: 100vh;
+  /*height: 100vh;*/
+  min-height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -54,8 +55,8 @@ export default {
   /* height: 80%; */
   border: 2px solid red;
   box-sizing: border-box;
-  overflow: auto; /* 콘텐츠가 넘칠 경우 스크롤 */
-  flex : 1;
+  overflow: visible; /* 콘텐츠가 넘칠 경우 스크롤 *//*기본값*/
+  /*flex : 1;*/
 }
 .bottom-area {
   height: 7%;
