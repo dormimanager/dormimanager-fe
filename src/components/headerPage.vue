@@ -1,7 +1,7 @@
 <template>
   <header class="header-container">
     <div class="header-left">
-      <img src="@/assets/logo.png" alt="로고" class="logo" />
+      <img src="@/assets/logo.png" alt="로고" class="logo" @click="main"/>
       <span class="system-title">기숙사 생활 관리 시스템</span>
     </div>
     <div>
@@ -28,6 +28,16 @@ function logout() {
   authStore.clearToken()
   // 필요하다면 라우터로 로그인 페이지로 이동
   router.push('/')
+}
+function main(){
+  const role = authStore.role
+  if(role ==='STUDENT'){
+    router.push('/main')
+  }
+  else{
+    router.push('/admin')
+  }
+  
 }
 
 </script>
