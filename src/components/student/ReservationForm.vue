@@ -3,6 +3,7 @@
     <h3 class="title">예약하기</h3>
     <button class="close-btn" @click="$emit('close')">X</button>
 
+    <!--예약할 데이터 선택-->
     <div class="popup-body">
       <div class="form-group">
         <label class="text">동</label>
@@ -23,9 +24,15 @@
 
       <div class="form-group">
         <label class="text">시간대</label>
+        <!--이미 예약된 시간대는 disabled-->
         <select v-model="selectedTime">
-          <option v-for="time in timeSlots" :key="time.value" :value="time.value">
-            {{ time.label }}
+          <option
+              v-for="time in timeSlots"
+              :key="time.value"
+              :value="time.value"
+              :disabled="reservedTimes.includes(time.value)"
+          >
+            {{ time.label }}<span v-if="reservedTimes.includes(time.value)"> (예약됨)</span>
           </option>
         </select>
       </div>
@@ -35,6 +42,7 @@
 
     <hr />
 
+    <!-- 예약 내역 리스트-->
     <div class="reservation-list">
       <h3>예약 내용</h3>
       <ul>
@@ -54,7 +62,89 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import { useReservationStore } from '@/stores/reservation' //예약내역 pinia에 저장할려고
+import { storeToRefs } from 'pinia'
+import { watch } from 'vue'
+import axios from 'axios'
+import { useAuthStore } from '@/stores/authStore' //학번가져오려고
 
+
+// 기기명 → 내부 ID 매핑 함수
+// 건물도 같이 고려
+function getLaundryId(buildingId, machineName) {
+  const laundryIdMap = {
+    1: { // 1동
+      "세탁기 1": 1,
+      "세탁기 2": 2,
+      "세탁기 3": 3,
+      "세탁기 4": 4,
+      "건조기 1": 5,
+      "건조기 2": 6,
+    },
+    2: { // 2동
+      "세탁기 1": 7,
+      "세탁기 2": 8,
+      "세탁기 3": 9,
+      "세탁기 4": 10,
+      "건조기 1": 11,
+      "건조기 2": 12,
+    },
+    3: { //3동
+      "세탁기 1": 13,
+      "세탁기 2": 14,
+      "세탁기 3": 15,
+      "세탁기 4": 16,
+      "건조기 1": 17,
+      "건조기 2": 18,
+    }
+  };
+  return laundryIdMap[buildingId]?.[machineName];
+}
+
+//기기명 > 예약 타입으로 반환
+function getReservType(machineName) {
+  return machineName.startsWith("세탁기") ? "세탁기" : "건조기";
+}
+
+// 날짜+타임 → ISO DateTime 문자열 생성
+// timeValue는 "1"~"9", dateStr은 "YYYY-MM-DD"
+function getReservTime(dateStr, timeValue) {
+  const timeMap = {
+    "1": "08:00:00",
+    "2": "09:30:00",
+    "3": "11:00:00",
+    "4": "12:30:00",
+    "5": "14:00:00",
+    "6": "15:30:00",
+    "7": "17:00:00",
+    "8": "18:30:00",
+    "9": "20:00:00"
+  };
+  return `${dateStr}T${timeMap[timeValue]}`;
+}
+
+// 건물명 → ID 매핑 함수
+function getBuildingId(buildingName) {
+  const map = {
+    "1동": 1,
+    "2동": 2,
+    "3동": 3
+  };
+  return map[buildingName] || 0;
+}
+
+// 학번 가져오기
+function getStudentId() {
+  const authStore = useAuthStore()
+  return authStore.studentId
+}
+
+// Pinia 스토어 인스턴스 생성 및 상태 참조
+const reservationStore = useReservationStore()
+const { reservedTimes } = storeToRefs(reservationStore)
+// Pinia store(reservationStore)의 reservedTimes 상태를 컴포넌트에서 반응형으로 사용
+
+// 부모 컴포넌트(laundryPC)로부터 전달받는 props(선택된 동)
 const props = defineProps({
   selectedBuilding: {
     type: String,
@@ -62,8 +152,11 @@ const props = defineProps({
   }
 });
 
+
+// 예약 가능한 기기 목록
 const machines = ["세탁기 1", "세탁기 2", "세탁기 3", "세탁기 4", "건조기 1", "건조기2"];
 
+// 예약 가능한 시간대 목록
 const timeSlots = [
   { value: "1", label: "1타임 8:00~9:30" },
   { value: "2", label: "2타임 9:30~11:00" },
@@ -77,14 +170,29 @@ const timeSlots = [
 
 ];
 
+// 선택된 기기/날짜/시간 상태값 (v-model로 양방향 바인딩)
 const selectedMachine = ref(machines[0]);
 const selectedDate = ref("");
 const selectedTime = ref(timeSlots[0].value);
 
+// 클라이언트 측 예약 내역(서버와 연동 X, UI 표시용)
 const reservations = ref([
 
 ]);
 
+// 선택된 기기/날짜가 바뀔 때마다 예약 현황 새로 불러오기
+watch([selectedMachine, selectedDate, props.selectedBuilding], ([newMachine, newDate, newBuilding]) => {
+  if (newMachine && newDate && newBuilding) {
+    const buildingId = getBuildingId(newBuilding);
+    const laundryId = getLaundryId(buildingId, newMachine);
+    if (laundryId) {
+      reservationStore.fetchReservations(laundryId, newDate);
+    }
+  }
+});
+
+
+// 날짜 포맷 변환 함수 (YYYY.MM.DD)
 const formatDate = (dateStr) => {
   if (!dateStr) return "";
   const d = new Date(dateStr);
@@ -94,46 +202,77 @@ const formatDate = (dateStr) => {
   return `${yyyy}.${mm}.${dd}`;
 };
 
+// 시간 value → 라벨 변환 함수
 const getTimeLabel = (value) => {
   const slot = timeSlots.find((s) => s.value === value);
   return slot ? slot.label : "";
 };
 
+// 예약 내역에서 항목 삭제
 const removeReservation = (idx) => {
   reservations.value.splice(idx, 1);
 };
 
+// 예약 버튼 활성화 조건(모든 값이 입력되어야 함)
 const canReserve = computed(() => {
   // 예약에 필요한 값 모두 있으면 활성화
   return selectedMachine.value && selectedDate.value && selectedTime.value;
 });
 
-const reserve = () => {
+// 예약 요청 함수(서버에 POST, 성공 시 예약 현황 갱신)
+const reserve = async() => {
   // 중복 체크(같은 기기, 날짜, 시간대 중복 예약 금지)
-  const exists = reservations.value.some(
-      (r) =>
-          r.machine === selectedMachine.value &&
-          r.date === selectedDate.value &&
-          r.time === selectedTime.value
-  );
-  if (exists) {
-    alert("이미 예약된 시간입니다.");
+  // const exists = reservations.value.some(
+  //     (r) =>
+  //         r.machine === selectedMachine.value &&
+  //         r.date === selectedDate.value &&
+  //         r.time === selectedTime.value
+  // );
+
+  if (reservedTimes.value.includes(selectedTime.value)) {
+    alert("이미 예약된 시간대입니다.");
     return;
   }
 
-  reservations.value.push({
-    machine: selectedMachine.value,
-    date: selectedDate.value,
-    time: selectedTime.value,
-  });
+  const buildingId = getBuildingId(props.selectedBuilding);
+  const laundryId = getLaundryId(buildingId, selectedMachine.value);
+  // 서버에 예약 요청 보내기
+  try {
+    // 서버에 예약 요청
+    await axios.post('/api/stu/reservation/laundry', {
+      laundryId, // 수정된 부분
+      reservTime: getReservTime(selectedDate.value, selectedTime.value),
+      buildingId,
+      reservType: getReservType(selectedMachine.value),
+      studentId: getStudentId(),
+      studyroomId: null
+    }, {
+      headers: {
+        studentId: getStudentId(),
+      }
+    });
+    alert('예약 성공!');
+    // 예약 내역 다시 불러오기
+    reservationStore.fetchReservations(selectedMachine.value, selectedDate.value);
+  } catch (e) {
+    alert(e.response?.data || '예약 실패(이미 예약된 시간대일 수 있습니다)');
+  }
 
-  // 예약 후 선택 초기화(옵션)
-  // selectedDate.value = "";
-  // selectedTime.value = timeSlots[0].value;
+  // reservations.value.push({
+  //   machine: selectedMachine.value,
+  //   date: selectedDate.value,
+  //   time: selectedTime.value,
+  // });
+
+  //입력값 초기화
+  selectedDate.value = "";
+  selectedTime.value = timeSlots[0].value;
+  selectedMachine.value = machines[0];
 };
 
 const emit = defineEmits(['close']);
 
+// 취소 버튼 클릭 시 입력값 초기화 및 팝업 닫기
 const cancel = () => {
   // 팝업 닫기 등 처리 (부모 컴포넌트에서 구현)
   // 여기서는 이벤트만 발생시킴

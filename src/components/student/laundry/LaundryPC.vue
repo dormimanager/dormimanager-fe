@@ -128,6 +128,7 @@
           <ReservationForm v-if="showModal"
                            v-model:show="showModal"
                            :selected-building="selectedBuilding"
+                           :laundry-id="selectedMachineId"
                            @close="showModal = false" />
         </div>
       </div>
