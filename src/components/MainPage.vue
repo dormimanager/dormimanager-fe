@@ -143,10 +143,6 @@ function notice() {
 }
 function complain() {
   router.push('/stu/complain')
-}
-
-function mypage() {
-  router.push('/stu/mypage')
 }function studyroom() {
   router.push('/stu/studyroom')
 }
