@@ -40,6 +40,7 @@ const routes = [
     { path: '/admin/notice/:id' , name: 'AdminNoticeDetailPc', component: AdminNoticeDetailPc, meta: { roles: ['ADMIN'] }},
     { path: '/admin/notice/write' , name: 'AdminNoticeWritePc', component: AdminNoticeWritePc, meta: { roles: ['ADMIN'] }}
 
+
 ]
 
 const router = createRouter({

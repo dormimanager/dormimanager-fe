@@ -76,7 +76,7 @@
         </div>
         <div class="action-btn study">
           <img src="https://cdn-icons-png.flaticon.com/512/1046/1046857.png" />
-          <span @click="study">스터디</span>
+          <span @click="studyroom">스터디</span>
         </div>
       </div>
     </div>
@@ -133,6 +133,7 @@ onMounted(async () => {
 
 function laundry() {
   router.push('/stu/laundry')
+
 }
 function mypage() {
   router.push('/stu/mypage')
@@ -143,8 +144,11 @@ function notice() {
 function complain() {
   router.push('/stu/complain')
 }
-function study() {
-  router.push('/stu/study')
+
+function mypage() {
+  router.push('/stu/mypage')
+}function studyroom() {
+  router.push('/stu/studyroom')
 }
 </script>
 
