@@ -1,12 +1,4 @@
 <template>
-  <div>
-    <button @click="fetchTests">테이블 조회</button>
-    <ul>
-      <li v-for="item in testList" :key="item.id">
-        {{ item.id }} - {{ item.name }}
-      </li>
-    </ul>
-  </div>
   <img src="@/assets/logo.png" alt="로고" class="logo" />
   <h1>기숙사 생활 관리 시스템</h1>
   <div class="login-container">
@@ -41,21 +33,11 @@ import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore'
 
 const authStore = useAuthStore()
-const testList = ref([])
 const router = useRouter();
 const loginData = ref({
   studentId: '',
   password: '',
 });
-
-const fetchTests = async () => {
-  try {
-    const response = await axios.get('/api/test')
-    testList.value = response.data
-  } catch (e) {
-    alert('조회 실패')
-  }
-}
 
 const handleLogin = async () => {
   // alert('로그인 성공!');
@@ -78,8 +60,14 @@ const handleLogin = async () => {
       studentId: userInfo.studentId,
       role: userInfo.auth
       })
-      // localStorage.setItem('token', response.data.token);
-      router.push('/main');
+
+      if(authStore.role === 'STUDENT'){
+        router.push('/main');
+      }
+      else{
+        router.push('/admin/');
+      }
+      
     }
   } catch (error) {
     alert(error.response.data);
