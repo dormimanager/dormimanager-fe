@@ -85,7 +85,7 @@
       <div class="action-btns">
         <div class="action-btn room">
           <img src="https://cdn-icons-png.flaticon.com/512/1046/1046857.png" />
-          <span>방배정</span>
+          <span @click="roomassign">방배정</span>
         </div>
         <div class="action-btn lost">
           <img src="https://cdn-icons-png.flaticon.com/512/1046/1046857.png" />
@@ -145,6 +145,8 @@ function complain() {
   router.push('/stu/complain')
 }function studyroom() {
   router.push('/stu/studyroom')
+} function roomassign() {
+  router.push('/stu/roomassignment')
 }
 </script>
 
