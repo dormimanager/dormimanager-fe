@@ -196,10 +196,6 @@
   margin-top: 40px;
   text-align: center;
 }
-.graph-img {
-  width: 100%;
-  max-width: 500px;
-}
 .date-label {
   margin-top: 10px;
   font-size: 14px;
