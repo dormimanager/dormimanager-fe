@@ -19,6 +19,8 @@ import ComplainWritePc from '@/components/student/complain/ComplainWritePc.vue';
 import RoomAssignment from '@/components/student/roomAssignment/RoomAssignment.vue'
 import AssignSurvey from "@/components/student/roomAssignment/AssignSurvey.vue";
 import DermitDetail from "@/components/student/dermit/DermitDetail.vue"
+import AdminLost from '@/components/admin/lost/AdminLost.vue';
+import StuLost from '@/components/student/lost/StuLost.vue';
 
 const routes = [
     {
@@ -42,9 +44,11 @@ const routes = [
     { path: '/stu/roomassignment', name:'RoomAssignment', component: RoomAssignment},
     { path: '/stu/survey', name:'AssignSurvey', component: AssignSurvey},
     { path: '/stu/dermitdetail', name:'DermitDetail', component: DermitDetail},
+    { path: '/stu/lost', name:'StuLost', component: StuLost},
     { path: '/admin/notice' , name: 'AdminNoticePc', component: AdminNoticePc, meta: { roles: ['ADMIN'] }},
     { path: '/admin/notice/:id' , name: 'AdminNoticeDetailPc', component: AdminNoticeDetailPc, meta: { roles: ['ADMIN'] }},
-    { path: '/admin/notice/write' , name: 'AdminNoticeWritePc', component: AdminNoticeWritePc, meta: { roles: ['ADMIN'] }}
+    { path: '/admin/notice/write' , name: 'AdminNoticeWritePc', component: AdminNoticeWritePc, meta: { roles: ['ADMIN'] }},
+    { path: '/admin/lost' , name: 'AdminLost', component: AdminLost, meta: { roles: ['ADMIN'] }}
 
 
 ]

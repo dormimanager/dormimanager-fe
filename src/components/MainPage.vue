@@ -89,7 +89,7 @@
         </div>
         <div class="action-btn lost">
           <img src="https://cdn-icons-png.flaticon.com/512/1046/1046857.png" />
-          <span>분실물</span>
+          <span @click="lost">분실물</span>
         </div>
       </div>
     </div>
@@ -149,6 +149,9 @@ function complain() {
   router.push('/stu/roomassignment')
 } function dermitdetail() {
   router.push('/stu/dermitdetail')
+}
+function lost() {
+  router.push('/stu/lost')
 }
 </script>
 
