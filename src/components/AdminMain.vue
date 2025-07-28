@@ -4,7 +4,8 @@
     <p>조회하기</p>
     <div>
       <button @click="notice">공지사항</button>
-      <button>민원</button>
+      <button >민원</button>
+      <button @click="lost">분실물</button>
     </div>
   </div>
 </template>
@@ -53,6 +54,10 @@ function notice() {
 
 function laundry() {
   router.push('/stu/laundry')
+}
+
+function lost() {
+  router.push('/admin/lost')
 }
 </script>
 

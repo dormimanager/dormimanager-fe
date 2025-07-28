@@ -16,6 +16,8 @@ import AdminNoticeWritePc from '@/components/admin/notice/AdminNoticeWritePc.vue
 import ComplainPc from '@/components/student/complain/ComplainPc.vue';
 import ComplainDetailPc from '@/components/student/complain/ComplainDetailPc.vue';
 import ComplainWritePc from '@/components/student/complain/ComplainWritePc.vue';
+import AdminLost from '@/components/admin/lost/AdminLost.vue';
+import StuLost from '@/components/student/lost/StuLost.vue';
 
 const routes = [
     {
@@ -36,9 +38,11 @@ const routes = [
     { path: '/stu/complain/:id', name:'ComplainDetailPc', component: ComplainDetailPc},
     { path: '/stu/complain/write' , name: 'ComplainWritePc', component: ComplainWritePc},
     { path: '/stu/notice/:id', name:'NoticeDetailPc', component: NoticeDetailPc},
+    { path: '/stu/lost', name:'StuLost', component: StuLost},
     { path: '/admin/notice' , name: 'AdminNoticePc', component: AdminNoticePc, meta: { roles: ['ADMIN'] }},
     { path: '/admin/notice/:id' , name: 'AdminNoticeDetailPc', component: AdminNoticeDetailPc, meta: { roles: ['ADMIN'] }},
-    { path: '/admin/notice/write' , name: 'AdminNoticeWritePc', component: AdminNoticeWritePc, meta: { roles: ['ADMIN'] }}
+    { path: '/admin/notice/write' , name: 'AdminNoticeWritePc', component: AdminNoticeWritePc, meta: { roles: ['ADMIN'] }},
+    { path: '/admin/lost' , name: 'AdminLost', component: AdminLost, meta: { roles: ['ADMIN'] }}
 
 
 ]
