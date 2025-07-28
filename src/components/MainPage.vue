@@ -41,7 +41,7 @@
         <div>
           퇴소까지 <span class="score-remain">12점</span> 남았습니다
         </div>
-        <button class="score-detail-btn">벌점 상세보기</button>
+        <button class="score-detail-btn" @click="dermitdetail">벌점 상세보기</button>
       </div>
     </div>
     <!-- 2~3행: 달력, 공지, 민원, 예약/조회 -->
@@ -147,6 +147,8 @@ function complain() {
   router.push('/stu/studyroom')
 } function roomassign() {
   router.push('/stu/roomassignment')
+} function dermitdetail() {
+  router.push('/stu/dermitdetail')
 }
 </script>
 

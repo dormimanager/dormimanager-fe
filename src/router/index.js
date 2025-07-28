@@ -18,6 +18,7 @@ import ComplainDetailPc from '@/components/student/complain/ComplainDetailPc.vue
 import ComplainWritePc from '@/components/student/complain/ComplainWritePc.vue';
 import RoomAssignment from '@/components/student/roomAssignment/RoomAssignment.vue'
 import AssignSurvey from "@/components/student/roomAssignment/AssignSurvey.vue";
+import DermitDetail from "@/components/student/dermit/DermitDetail.vue"
 
 const routes = [
     {
@@ -40,6 +41,7 @@ const routes = [
     { path: '/stu/notice/:id', name:'NoticeDetailPc', component: NoticeDetailPc},
     { path: '/stu/roomassignment', name:'RoomAssignment', component: RoomAssignment},
     { path: '/stu/survey', name:'AssignSurvey', component: AssignSurvey},
+    { path: '/stu/dermitdetail', name:'DermitDetail', component: DermitDetail},
     { path: '/admin/notice' , name: 'AdminNoticePc', component: AdminNoticePc, meta: { roles: ['ADMIN'] }},
     { path: '/admin/notice/:id' , name: 'AdminNoticeDetailPc', component: AdminNoticeDetailPc, meta: { roles: ['ADMIN'] }},
     { path: '/admin/notice/write' , name: 'AdminNoticeWritePc', component: AdminNoticeWritePc, meta: { roles: ['ADMIN'] }}
