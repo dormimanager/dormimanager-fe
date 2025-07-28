@@ -41,7 +41,7 @@
         <div>
           퇴소까지 <span class="score-remain">12점</span> 남았습니다
         </div>
-        <button class="score-detail-btn">벌점 상세보기</button>
+        <button class="score-detail-btn" @click="dermitdetail">벌점 상세보기</button>
       </div>
     </div>
     <!-- 2~3행: 달력, 공지, 민원, 예약/조회 -->
@@ -85,7 +85,7 @@
       <div class="action-btns">
         <div class="action-btn room">
           <img src="https://cdn-icons-png.flaticon.com/512/1046/1046857.png" />
-          <span>방배정</span>
+          <span @click="roomassign">방배정</span>
         </div>
         <div class="action-btn lost">
           <img src="https://cdn-icons-png.flaticon.com/512/1046/1046857.png" />
@@ -145,6 +145,10 @@ function complain() {
   router.push('/stu/complain')
 }function studyroom() {
   router.push('/stu/studyroom')
+} function roomassign() {
+  router.push('/stu/roomassignment')
+} function dermitdetail() {
+  router.push('/stu/dermitdetail')
 }
 function lost() {
   router.push('/stu/lost')
